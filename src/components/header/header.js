@@ -7,18 +7,18 @@ const Header = () => {
     <div className="header d-flex">
       <h3>
         <a href="#">
-          StarDB
+          SWAPI
         </a>
       </h3>
       <ul className="d-flex">
         <li>
-          <a href="#">People</a>
+          <a href="#">Персонажи</a>
         </li>
         <li>
-          <a href="#">Planets</a>
+          <a href="#">Планеты</a>
         </li>
         <li>
-          <a href="#">Starships</a>
+          <a href="#">Звёздные корабли</a>
         </li>
       </ul>
     </div>

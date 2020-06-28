@@ -1,8 +1,10 @@
-import React, { Component } from 'react';
+import React, {Component} from 'react';
+
 
 import './random-planet.css';
 import SwapiService from "../../services/swapi-services";
 import Spinner from "../spinner/spinner";
+import ErrorIndicator from "../error-indicator/error-indicator";
 
 export default class RandomPlanet extends Component {
 
@@ -10,13 +12,21 @@ export default class RandomPlanet extends Component {
 
   state = {
     planet: {},
-    loading: true
+    loading: true,
+    error: false
   };
 
   constructor() {
     super();
     this.updatePlanet();
-  }
+  };
+
+  onError = (err) => {
+    this.setState({
+      error: true,
+      loading: false
+    });
+  };
 
   onPlanetLoaded = (planet) => {
     this.setState({
@@ -26,19 +36,24 @@ export default class RandomPlanet extends Component {
   };
 
   updatePlanet() {
-    const id = 12;
+    const id = Math.floor(Math.random() * 17) + 2;
     this.swapiService
       .getPlanet(id)
-      .then(this.onPlanetLoaded);
+      .then(this.onPlanetLoaded)
+      .catch(this.onError);
   }
 
   render() {
-    const { planet, loading } = this.state;
-    const spinner = loading ? <Spinner /> : null;
-    const content = !loading ? <PlanetView planet={planet}/> : null;
+    const {planet, loading, error} = this.state;
+
+    const hasData = !(loading || error);
+    const errorMessage = error ? <ErrorIndicator/> : null;
+    const spinner = loading ? <Spinner/> : null;
+    const content = hasData ? <PlanetView planet={planet}/> : null;
 
     return (
       <div className="random-planet jumbotron rounded">
+        {errorMessage}
         {spinner}
         {content}
       </div>
@@ -46,28 +61,30 @@ export default class RandomPlanet extends Component {
   }
 }
 
-const PlanetView = ({ planet }) => {
+const PlanetView = ({planet}) => {
 
-  const { id, name, population,
-    rotationPeriod, diameter } = planet;
+  const {
+    id, name, population,
+    rotationPeriod, diameter
+  } = planet;
 
   return (
     <React.Fragment>
       <img className="planet-image"
-           src={`https://starwars-visualguide.com/assets/img/planets/${id}.jpg`} />
+           src={`https://starwars-visualguide.com/assets/img/planets/${id}.jpg`}/>
       <div>
         <h4>{name}</h4>
         <ul className="list-group list-group-flush">
           <li className="list-group-item">
-            <span className="term">Population</span>
+            <span className="term">Численность популяции:</span>
             <span>{population}</span>
           </li>
           <li className="list-group-item">
-            <span className="term">Rotation Period</span>
+            <span className="term">Период вращения:</span>
             <span>{rotationPeriod}</span>
           </li>
           <li className="list-group-item">
-            <span className="term">Diameter</span>
+            <span className="term">Диаметр:</span>
             <span>{diameter}</span>
           </li>
         </ul>
