@@ -1,7 +1,5 @@
 import React, {Component} from 'react';
-
 import './item-details.css';
-import SwapiService from "../../services/swapi-services";
 import ErrorButton from "../error-button/error-button";
 
 export const Record = ({item, field, label}) => {
@@ -54,7 +52,7 @@ export default class ItemDetails extends Component {
       return <span>Выбери пункт из списка</span>;
     }
 
-    const {id, name, birthYear, height, mass} = item;
+    const {name} = item;
 
     return (
       <div className="item-details card">
