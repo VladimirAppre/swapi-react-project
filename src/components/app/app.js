@@ -11,14 +11,27 @@ import {Record} from "../item-details/item-details";
 import {PersonDetails, PersonList, PlanetDetails, PlanetList, StarshipDetails, StarshipList} from "../sw-components";
 import {SwapiServiceProvider} from "../swapi-service-context/swapi-service-context";
 import DummySwapiService from '../swapi-service-context/dummy-swapi-service';
+import withSwapiService from "../hoc-helpers/with-swapi-service";
 
 export default class App extends Component {
-  swapiService = new DummySwapiService();
 
   state = {
     showRandomPlanet: true,
+    swapiService: new DummySwapiService(),
     hasError: false
   };
+
+  onServiceChange = () => {
+    this.setState(({swapiService}) => {
+      const Service = swapiService instanceof SwapiService ?
+        DummySwapiService : SwapiService;
+
+      console.log('switched, to', Service.name);
+      return {
+        swapiService: new Service ()
+      }
+    })
+  }
 
   toggleRandomPlanet = () => {
     this.setState((state) => {
@@ -46,7 +59,7 @@ export default class App extends Component {
       getStarship,
       getPersonImage,
       getStarshipImage
-    } = this.swapiService;
+    } = this.state.swapiService;
 
     const personDetails = (
       <ItemDetails
@@ -73,9 +86,9 @@ export default class App extends Component {
 
     return (
       <ErrorBoundry>
-        <SwapiServiceProvider value={this.swapiService}>
+        <SwapiServiceProvider value={this.state.swapiService}>
           <div className="stardb-app">
-            <Header/>
+            <Header onServiceChange={this.onServiceChange}/>
             <PersonDetails itemId={11}/>
             <StarshipDetails itemId={10}/>
             <PlanetDetails itemId={5}/>
