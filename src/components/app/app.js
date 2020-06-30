@@ -9,9 +9,11 @@ import SwapiService from "../../services/swapi-services";
 import ErrorBoundry from "../error-boundry/error-boundry";
 import {Record} from "../item-details/item-details";
 import {PersonDetails, PersonList, PlanetDetails, PlanetList, StarshipDetails, StarshipList} from "../sw-components";
+import {SwapiServiceProvider} from "../swapi-service-context/swapi-service-context";
+import DummySwapiService from '../swapi-service-context/dummy-swapi-service';
 
 export default class App extends Component {
-  swapiService = new SwapiService();
+  swapiService = new DummySwapiService();
 
   state = {
     showRandomPlanet: true,
@@ -52,9 +54,9 @@ export default class App extends Component {
         getData={getPerson}
         getImageUrl={getPersonImage}
       >
-        <Record field='birthYear' label='Gender' />
-        <Record field='height' label='Рост' />
-        <Record field='mass' label='Вес' />
+        <Record field='birthYear' label='Gender'/>
+        <Record field='height' label='Рост'/>
+        <Record field='mass' label='Вес'/>
       </ItemDetails>);
 
     const starshipDetails = (
@@ -63,29 +65,30 @@ export default class App extends Component {
         getData={getStarship}
         getImageUrl={getStarshipImage}
       >
-        <Record field='model' label='Модель' />
-        <Record field='length' label='Длина' />
-        <Record field='costInCredits' label='Стоимость' />
+        <Record field='model' label='Модель'/>
+        <Record field='length' label='Длина'/>
+        <Record field='costInCredits' label='Стоимость'/>
       </ItemDetails>);
 
 
     return (
       <ErrorBoundry>
-        <div className="stardb-app">
-          <Header/>
-          <PersonDetails itemId={11}/>
-          <StarshipDetails itemId={10}/>
-          <PlanetDetails itemId={5}/>
+        <SwapiServiceProvider value={this.swapiService}>
+          <div className="stardb-app">
+            <Header/>
+            <PersonDetails itemId={11}/>
+            <StarshipDetails itemId={10}/>
+            <PlanetDetails itemId={5}/>
 
-          <PersonList />
-          <StarshipList />
-          <PlanetList />
+            <PersonList/>
+            <StarshipList/>
+            <PlanetList/>
 
-          {/*<Row*/}
-          {/*  left={personDetails}*/}
-          {/*  right={starshipDetails}*/}
-          {/*/>*/}
-          {/*          { planet }
+            {/*<Row*/}
+            {/*  left={personDetails}*/}
+            {/*  right={starshipDetails}*/}
+            {/*/>*/}
+            {/*          { planet }
           <div className="row mb2 button-row">
             <button
               className="toggle-planet btn btn-warning btn-lg"
@@ -95,9 +98,10 @@ export default class App extends Component {
             <ErrorButton />
           </div>
           <PeoplePage />*/}
-
-        </div>
+          </div>
+        </SwapiServiceProvider>
       </ErrorBoundry>
+
     );
   };
 };
