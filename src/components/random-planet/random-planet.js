@@ -9,7 +9,7 @@ import ErrorIndicator from "../error-indicator/error-indicator";
 export default class RandomPlanet extends Component {
 
   static defaultProps = {
-    updateInterval: 100000
+    updateInterval: 8000
   };
 
   static propTypes = {
@@ -85,7 +85,7 @@ const PlanetView = ({planet}) => {
     <React.Fragment>
       <img className="planet-image"
            src={`https://starwars-visualguide.com/assets/img/planets/${id}.jpg`}
-           alt="planet" />
+           alt="planet"/>
       <div>
         <h4>{name}</h4>
         <ul className="list-group list-group-flush">

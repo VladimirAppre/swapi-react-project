@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import './item-details.css';
-import ErrorButton from "../error-button/error-button";
+import notFoundImg from '../not-found/images/not-found-pic.jpg'
 
 export const Record = ({item, field, label}) => {
   return (
@@ -46,8 +46,8 @@ export default class ItemDetails extends Component {
   }
 
   render() {
-
     const {item, image} = this.state;
+
     if (!item) {
       return <span>Выбери пункт из списка</span>;
     }
@@ -58,7 +58,13 @@ export default class ItemDetails extends Component {
       <div className="item-details card">
         <img className="item-image"
              src={image}
-             alt="character"/>
+             alt="картинка"
+             onError={(e) => {
+               e.target.src = notFoundImg;
+               e.target.onError = null;
+             }}
+        />
+
 
         <div className="card-body">
           <h4>{name}</h4>
@@ -69,7 +75,6 @@ export default class ItemDetails extends Component {
               })
             }
           </ul>
-          <ErrorButton/>
         </div>
       </div>
     );

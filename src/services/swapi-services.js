@@ -7,8 +7,9 @@ export default class SwapiService {
     const res = await fetch(`${this._apiBase}${url}`);
 
     if (!res.ok) {
-      throw new Error(`Could not fetch ${url}, received ${res.status}`);
+      throw new Error(`Не удалось получить ${url}, получили ${res.status}`);
     }
+
     return await res.json();
   };
 
@@ -63,7 +64,7 @@ export default class SwapiService {
     return {
       id: this._extractId(planet),
       name: planet.name,
-      population: planet.population,
+      population: planet.population === 'unknown' ? 'неизвестно' : planet.population,
       rotationPeriod: planet.rotation_period,
       diameter: planet.diameter,
     };
@@ -75,7 +76,7 @@ export default class SwapiService {
       name: starship.name,
       model: starship.model,
       manufacturer: starship.manufacturer,
-      costInCredits: starship.cost_in_credits,
+      costInCredits: starship.cost_in_credits === 'unknown' ? 'неизвестно' : starship.cost_in_credits,
       length: starship.length,
       crew: starship.crew,
       passengers: starship.passengers,
@@ -88,7 +89,7 @@ export default class SwapiService {
       id: this._extractId(person),
       name: person.name,
       gender: person.gender,
-      birthYear: person.birth_year,
+      birthYear: person.birth_year === 'unknown' ? 'неизвестно' : person.birth_year,
       height: person.height,
       mass: person.mass,
     };

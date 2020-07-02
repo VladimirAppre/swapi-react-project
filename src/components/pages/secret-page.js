@@ -1,7 +1,7 @@
 import React from 'react';
-import { Redirect } from 'react-router-dom';
+import {Redirect} from 'react-router-dom';
 
-const SecretPage = ({ isLoggedIn }) => {
+const SecretPage = ({isLoggedIn}) => {
 
   if (isLoggedIn) {
     return (
@@ -11,7 +11,7 @@ const SecretPage = ({ isLoggedIn }) => {
     );
   }
 
-  return <Redirect to="/login" />;
+  return <Redirect to="/login"/>;
 
 };
 

@@ -22,7 +22,7 @@ const withData = (View) => {
 
     update() {
       this.setState({
-        loading:true,
+        loading: true,
         error: false
       });
 
@@ -32,11 +32,11 @@ const withData = (View) => {
             data,
             loading: false
           });
-        }).catch(()=>{
-          this.setState({
-            error: true,
-            loading: false
-          });
+        }).catch(() => {
+        this.setState({
+          error: true,
+          loading: false
+        });
       });
     };
 
@@ -47,8 +47,8 @@ const withData = (View) => {
         return <Spinner/>;
       }
 
-      if(error) {
-        return <ErrorIndicator />
+      if (error) {
+        return <ErrorIndicator/>
       }
       return <View {...this.props} data={data}/>
     };

@@ -4,7 +4,6 @@ export default class DummySwapiService {
     {
       id: 1,
       name: 'Bilbo Baggins [TEST DATA]',
-      gender: 'male',
       birthYear: 'long ago',
       height: '158',
       mass: '84'
@@ -13,7 +12,6 @@ export default class DummySwapiService {
     {
       id: 2,
       name: 'Frodo Baggins [TEST DATA]',
-      gender: 'male',
       birthYear: 'long ago',
       height: '161',
       mass: '91'

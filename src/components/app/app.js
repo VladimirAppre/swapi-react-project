@@ -1,17 +1,16 @@
 import React, {Component} from "react";
-import {BrowserRouter as Router, Route, Switch, Redirect} from 'react-router-dom';
+import {BrowserRouter as Router, Route, Switch} from 'react-router-dom';
 import Header from "../header/header";
 import RandomPlanet from "../random-planet/random-planet";
 import ErrorIndicator from "../error-indicator/error-indicator";
 import SwapiService from "../../services/swapi-services";
 import ErrorBoundry from "../error-boundry/error-boundry";
 import {SwapiServiceProvider} from "../swapi-service-context/swapi-service-context";
-import DummySwapiService from '../swapi-service-context/dummy-swapi-service';
-import {PeoplePage, StarshipsPage, LoginPage, PlanetsPage, SecretPage} from "../pages";
+import {LoginPage, PeoplePage, PlanetsPage, SecretPage, StarshipsPage} from "../pages";
 
 import './app.css';
 import StarshipDetails from "../sw-components/starship-details";
-
+import NotFound from "../not-found/not-found";
 
 export default class App extends Component {
 
@@ -25,16 +24,6 @@ export default class App extends Component {
   onLogin = () => {
     this.setState({
       isLoggedIn: true
-    });
-  };
-
-  onServiceChange = () => {
-    this.setState(({swapiService}) => {
-      const Service = swapiService instanceof SwapiService ?
-        DummySwapiService : SwapiService;
-      return {
-        swapiService: new Service()
-      };
     });
   };
 
@@ -61,7 +50,7 @@ export default class App extends Component {
               <Switch>
                 <Route path='/'
                        render={() => <h2>Добро пожаловать в SWAPI REACT!</h2>}
-                       exact />
+                       exact/>
                 <Route path='/people/:id?' component={PeoplePage}/>
                 <Route path='/planets' exact component={PlanetsPage}/>
                 <Route path='/planets/id' exact component={PlanetsPage}/>
@@ -83,7 +72,7 @@ export default class App extends Component {
                   <SecretPage isLoggedIn={isLoggedIn}/>
                 )}/>
 
-                <Route render={()=><h2>Страница не найдена</h2>} />
+                <Route component={NotFound}/>
               </Switch>
             </div>
           </Router>

@@ -1,12 +1,7 @@
 import React from "react";
 import ItemList from "../item-list/item-list";
 
-import {
-  withData,
-  withSwapiService,
-  withChildFunction,
-  compose
-} from '../hoc-helpers';
+import {compose, withChildFunction, withData, withSwapiService} from '../hoc-helpers';
 
 
 const renderName = ({name}) => <span>{name}</span>;
