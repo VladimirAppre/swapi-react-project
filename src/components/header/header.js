@@ -13,13 +13,19 @@ const Header = ({onServiceChange}) => {
       </h3>
       <ul className="d-flex">
         <li>
-          <Link to="/people">Персонажи</Link>
+          <Link to="/people/">Персонажи</Link>
         </li>
         <li>
-          <Link to="/planets">Планеты</Link>
+          <Link to="/planets/">Планеты</Link>
         </li>
         <li>
-          <Link to="/starships">Звёздные корабли</Link>
+          <Link to="/starships/">Звёздные корабли</Link>
+        </li>
+        <li>
+          <Link to="/login">Войти</Link>
+        </li>
+        <li>
+          <Link to="/secret">Серкет</Link>
         </li>
       </ul>
 
