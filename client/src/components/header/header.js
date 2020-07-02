@@ -8,7 +8,7 @@ const Header = () => {
     <div className="header d-flex">
       <h3>
         <Link to="/">
-          SWAPI
+          SWAPI REACT
         </Link>
       </h3>
       <ul className="d-flex">

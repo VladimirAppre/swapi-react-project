@@ -64,7 +64,7 @@ export default class SwapiService {
     return {
       id: this._extractId(planet),
       name: planet.name,
-      population: planet.population === 'unknown' ? 'неизвестно' : planet.population,
+      population: planet.population === 'unknown' ? 'в данный момент, наши дроны улетели в поисках информации...' : planet.population,
       rotationPeriod: planet.rotation_period,
       diameter: planet.diameter,
     };
